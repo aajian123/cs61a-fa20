@@ -100,7 +100,11 @@ def composite_identity(f, g):
     >>> b1(4)                            # (4 + 1)^2 != 4^2 + 1
     False
     """
-    "*** YOUR CODE HERE ***"
+    def judge(x):
+        if composer(f,g)(x) == composer(g,f)(x):
+            return True
+        return False
+    return judge
 
 
 def cycle(f1, f2, f3):
@@ -129,4 +133,17 @@ def cycle(f1, f2, f3):
     >>> do_two_cycles(1)
     19
     """
-    "*** YOUR CODE HERE ***"
+    def rule(n):
+        def final(x):
+            count = 1
+            while count <= n:
+                if count%3 == 1:
+                    x = f1(x)
+                elif count%3 == 2:
+                    x = f2(x)
+                else:
+                    x = f3(x)
+                count += 1
+            return x
+        return final
+    return rule
