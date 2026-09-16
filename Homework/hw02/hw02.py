@@ -144,9 +144,17 @@ def count_coins(total):
     >>> check(HW_SOURCE_FILE, 'count_coins', ['While', 'For'])                                          
     True
     """
-    def helper(x):
-        return 
-    return
+    def helper(rest,coin):
+        if rest == 0:
+            return 1
+        elif rest < 0:
+            return 0
+        elif coin == None:
+            return 0
+        else:
+            return helper(rest-coin,coin) + helper(rest,next_largest_coin(coin))
+    return helper(total,1)
+        
 
 
 from operator import sub, mul
@@ -161,5 +169,13 @@ def make_anonymous_factorial():
     >>> check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    return (
+    lambda f:
+        lambda n: 1 if n == 1
+        else mul(n, f(f)(sub(n, 1)))
+)(
+    lambda f:
+        lambda n: 1 if n == 1
+        else mul(n, f(f)(sub(n, 1)))
+)
 
