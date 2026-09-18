@@ -39,7 +39,14 @@ def about(topic):
     """
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
-    
+    def f(paragraph):
+        p = split(lower(remove_punctuation(paragraph)))
+        for i in p:
+            for j in range(0,len(topic)):
+                if i == topic[j]:
+                    return True
+        return False
+    return f
     # END PROBLEM 2
 
 
@@ -63,7 +70,15 @@ def accuracy(typed, reference):
     typed_words = split(typed)
     reference_words = split(reference)
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    true_value = 0
+    if len(typed_words) == 0 or len(reference_words) == 0:
+        return 0.0
+    else:
+        length = len(typed_words) if len(typed_words)<=len(reference_words) else len(reference_words)
+        for i in range(0,length):
+            if typed_words[i] == reference_words[i]:
+                true_value += 1
+        return (true_value/len(typed_words))*100
     # END PROBLEM 3
 
 
@@ -71,7 +86,8 @@ def wpm(typed, elapsed):
     """Return the words-per-minute (WPM) of the TYPED string."""
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    total = len(typed)
+    return (total/5.0)/(elapsed/60)
     # END PROBLEM 4
 
 
