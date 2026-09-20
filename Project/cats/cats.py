@@ -97,22 +97,18 @@ def autocorrect(user_word, valid_words, diff_function, limit):
     than LIMIT.
     """
     # BEGIN PROBLEM 5
-    min_diff = limit
-    min_word = ''
-    is_ini = 0
-    for i in range(0,len(valid_words)):
-        if user_word == valid_words[i]:
+    min_diff = float('inf')
+    min_word = user_word
+    for word in valid_words:
+        if user_word == word:
             return user_word
-        elif diff_function(user_word,valid_words[i],limit) <= min_diff and is_ini == 0:
-            min_diff = diff_function(user_word,valid_words[i],limit)
-            min_word = valid_words[i]
-            is_ini = 1
-        elif diff_function(user_word,valid_words[i],limit) < min_diff and is_ini == 1:
-            min_diff = diff_function(user_word,valid_words[i],limit)
-            min_word = valid_words[i]
-    if is_ini == 0:
+        diff = diff_function(user_word,word,limit)
+        if diff < min_diff:
+            min_diff = diff
+            min_word = word
+    if min_diff > limit:
         return user_word
-    return min_word 
+    return min_word
     # END PROBLEM 5
 
 
