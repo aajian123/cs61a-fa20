@@ -172,7 +172,15 @@ def final_diff(start, goal, limit):
 def report_progress(typed, prompt, user_id, send):
     """Send a report of your id and progress so far to the multiplayer server."""
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    num = 0
+    for i in range(0,len(typed)):
+        if typed[i] == prompt[i]:
+            num += 1
+        else:
+            break
+    progress = num/len(prompt)
+    send({'id':user_id,'progress':progress})
+    return progress
     # END PROBLEM 8
 
 
@@ -198,7 +206,12 @@ def time_per_word(times_per_player, words):
         words: a list of words, in the order they are typed.
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    real_times = [[]]
+    for i in range(0,len(times_per_player[0])-1):
+        real_times[0].append(times_per_player[i+1]-times_per_player[i])
+    for j in range(0,len(times_per_player[1])-1):
+            real_times[1].append(times_per_player[i+1]-times_per_player[i])
+    return game(words,real_times)
     # END PROBLEM 9
 
 
