@@ -206,12 +206,19 @@ def time_per_word(times_per_player, words):
         words: a list of words, in the order they are typed.
     """
     # BEGIN PROBLEM 9
-    real_times = [[]]
-    for i in range(0,len(times_per_player[0])-1):
-        real_times[0].append(times_per_player[i+1]-times_per_player[i])
-    for j in range(0,len(times_per_player[1])-1):
-            real_times[1].append(times_per_player[i+1]-times_per_player[i])
-    return game(words,real_times)
+    #real_times = [[],[]]
+    #for i in range(0,len(times_per_player[0])-1):
+    #    real_times[0].append(times_per_player[0][i+1]-times_per_player[0][i])
+    #for j in range(0,len(times_per_player[1])-1):
+    #        real_times[1].append(times_per_player[1][j+1]-times_per_player[1][j])
+    #return game(words,real_times)
+    times = []
+    for timestamps in times_per_player:
+        play_time = []
+        for i in range(0,len(timestamps)-1):
+            play_time.append(timestamps[i+1] - timestamps[i])
+        times.append(play_time)
+    return game(words,times)
     # END PROBLEM 9
 
 
@@ -226,7 +233,18 @@ def fastest_words(game):
     player_indices = range(len(all_times(game)))  # contains an *index* for each player
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
+    FastWords = []
+    for x in player_indices:
+        FastWords.append([])
+    for i in word_indices:
+        min_time = float('inf')
+        min_player = 0
+        for j in player_indices:
+            if time(game,j,i) < min_time:
+                min_time = time(game,j,i)
+                min_player = j
+        FastWords[min_player].append(word_at(game,i))
+    return FastWords
     # END PROBLEM 10
 
 
