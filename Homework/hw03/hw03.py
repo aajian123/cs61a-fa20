@@ -143,7 +143,12 @@ def totals_tree(m):
     >>> check(HW_SOURCE_FILE, 'totals_tree', ['Index'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return tree(size(m),[])
+    else:
+        left_tree = end(left(m))
+        right_tree = end(right(m))
+        return tree(total_weight(m),[totals_tree(left_tree),totals_tree(right_tree)])
 
 
 def replace_leaf(t, find_value, replace_value):
@@ -175,8 +180,14 @@ def replace_leaf(t, find_value, replace_value):
     >>> laerad == yggdrasil # Make sure original tree is unmodified
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    if is_leaf:
+        if label(t) == find_value:
+            return tree(replace_value)
+        return tree(label(t))
+    else:
+        new_branches = [replace_leaf(x,find_value,replace_value) 
+                        for x in branches(t)]
+        return tree(label(t),new_branches)
 
 def preorder(t):
     """Return a list of the entries in this tree in the order that they
@@ -188,7 +199,13 @@ def preorder(t):
     >>> preorder(tree(2, [tree(4, [tree(6)])]))
     [2, 4, 6]
     """
-    "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+        return [label(t)]
+    else:
+        result = [label(t)]
+        for x in branches(t):
+            result = result + preorder(x)
+        return result
 
 
 def has_path(t, word):
