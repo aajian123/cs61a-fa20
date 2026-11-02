@@ -236,8 +236,14 @@ def has_path(t, word):
     >>> has_path(greetings, 'bye')
     False
     """
-    assert len(word) > 0, 'no path for empty word.'
-    "*** YOUR CODE HERE ***"
+    if label(t) != word[0]:
+        return False
+    if len(word) == 1:
+        return True
+    for x in branches(t):
+        if has_path(x,word[1:]):#只要有一个条件能进入，就会返回true了
+            return True        #否则如果循环跑完都没有返回，则返回False
+    return False
 
 
 def interval(a, b):
