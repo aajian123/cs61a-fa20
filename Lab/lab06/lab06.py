@@ -16,7 +16,13 @@ def make_adder_inc(a):
     >>> adder2(5)
     11
     """
-    "*** YOUR CODE HERE ***"
+    count = -1
+    def adder(x):
+        nonlocal count
+        count += 1
+        result = a + x + count
+        return result
+    return adder
 
 
 def make_fib():
@@ -42,7 +48,16 @@ def make_fib():
     >>> check(this_file, 'make_fib', ['List'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    number1 = -1
+    number2 = 1
+    def fib():
+        nonlocal number1,number2
+        result = number1 + number2
+        number1 = number2
+        number2 = result
+        return result
+    return fib
+#wonderful math,happy
 
 
 def insert_items(lst, entry, elem):
@@ -61,5 +76,13 @@ def insert_items(lst, entry, elem):
     >>> large_lst3 is large_lst
     True
     """
-    "*** YOUR CODE HERE ***"
+    number = []
+    for index,i in enumerate(lst):
+        if i == entry:
+            number.append(index+1)
+    for x in number:
+        lst.insert(x,elem)
+        for j in range(len(number)):
+            number[j] += 1
+    return lst
 
